@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To Do List</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #09011b;
+  }
+
+  .container {
+    margin: 50px auto;
+    background-color: #0bfef6;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(18, 15, 219, 0.1);
+    width: 60%;
+    flex-direction: column;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    height: fit-content;
+    width: 100%;
+
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+  .delete-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>To-Do List</h1>
+    <input type="text" id="task" placeholder="Write here...">
+    <button id="addTask">Add</button>
+    <ul id="taskList"></ul>
+  </div>
+  <script>
+    document.getElementById("addTask").addEventListener("click",data);
+    function addDeleteEvent() {
+      var deleteButtons = document.getElementsByClassName("delete-btn");
+      for (var i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener("click", function() {
+          this.parentNode.remove();
+        });
+      }
+    }
+
+    function data() {
+      var taskText = document.getElementById("task").value;
+      if (taskText !== "") {
+        var taskList = document.getElementById("taskList");
+        var listItem = document.createElement("div");
+        listItem.innerHTML = `
+          <span>${taskText}</span>
+          <button class="delete-btn">Remove</button>
+        `;
+        taskList.appendChild(listItem);
+        document.getElementById("task").value = "";
+        addDeleteEvent();
+      }
+    }
+    document.querySelector('#task').addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+              data();
+            }
+        });
+  </script>
+</body>
+</html>
